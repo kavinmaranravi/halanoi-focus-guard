@@ -12,6 +12,17 @@ AI-powered Chrome extension for productivity.
 - Browser activity tracking
 - Lightweight UI popup
 
+## Screenshots
+
+### Menu Popup
+![Menu](menu.png)
+
+### Focus Blocking Screen
+![Block](block.png)
+
+### Productivity Success
+![Success](success.png)
+
 ## Tech
 JavaScript, Chrome Extension APIs, Local AI
 
