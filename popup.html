@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Halanoi Focus</title>
+  <style>
+    /* 🎨 GLASSMORPHISM THEME (Matches your website) */
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Orbitron:wght@700&display=swap');
+
+    body {
+      width: 320px;
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: #050508; /* Deep Halanoi Black */
+      color: white;
+      padding: 20px;
+    }
+
+    /* Header & Stats */
+    .header { text-align: center; margin-bottom: 20px; }
+    h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.5rem;
+      margin: 0;
+      background: linear-gradient(to right, #6366f1, #a855f7);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .stat-box {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px;
+      padding: 10px 15px;
+      text-align: center;
+      min-width: 80px;
+    }
+    .stat-num {
+      display: block;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.2rem;
+      color: #a855f7;
+      font-weight: 700;
+    }
+    .stat-label {
+      font-size: 0.7rem;
+      color: #888;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* The Switch List */
+    .site-list { display: flex; flex-direction: column; gap: 12px; }
+    
+    .site-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.2s;
+    }
+    .site-row:hover { background: rgba(255, 255, 255, 0.08); }
+
+    .site-info { display: flex; align-items: center; gap: 10px; }
+    .site-name { font-weight: 600; font-size: 0.95rem; }
+
+    /* Custom Toggle Switch */
+    .switch { position: relative; display: inline-block; width: 44px; height: 24px; }
+    .switch input { opacity: 0; width: 0; height: 0; }
+    .slider {
+      position: absolute; cursor: pointer;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: #333; transition: .4s; border-radius: 34px;
+    }
+    .slider:before {
+      position: absolute; content: "";
+      height: 18px; width: 18px; left: 3px; bottom: 3px;
+      background-color: white; transition: .4s; border-radius: 50%;
+    }
+    input:checked + .slider { background-color: #6366f1; }
+    input:checked + .slider:before { transform: translateX(20px); }
+
+    /* Footer */
+    .footer { 
+      margin-top: 20px; text-align: center; 
+      font-size: 0.75rem; color: #666; 
+    }
+    .link { color: #a855f7; text-decoration: none; }
+
+    /* Custom Blocklist Section */
+    .custom-section {
+      margin-top: 20px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding-top: 15px;
+    }
+    .custom-header {
+      font-size: 0.9rem;
+      color: #cbd5e1;
+      margin-bottom: 10px;
+      margin-top: 0;
+    }
+    .input-group {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+    .custom-input {
+      flex: 1;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: white;
+      padding: 8px 12px;
+      border-radius: 8px;
+      outline: none;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.85rem;
+      transition: border-color 0.2s;
+    }
+    .custom-input:focus {
+      border-color: #6366f1;
+    }
+    .add-btn {
+      background: #6366f1;
+      color: white;
+      border: none;
+      padding: 0 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1.2rem;
+      line-height: 1;
+      transition: background 0.2s;
+    }
+    .add-btn:hover {
+      background: #4f46e5;
+    }
+    
+    /* Scrollable List */
+    .custom-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      max-height: 120px;
+      overflow-y: auto;
+      padding-right: 4px; /* Space for scrollbar */
+    }
+    
+    /* Scrollbar Styling */
+    .custom-list::-webkit-scrollbar {
+      width: 4px;
+    }
+    .custom-list::-webkit-scrollbar-track {
+      background: rgba(255,255,255,0.02);
+    }
+    .custom-list::-webkit-scrollbar-thumb {
+      background: rgba(255,255,255,0.15);
+      border-radius: 4px;
+    }
+    .custom-list::-webkit-scrollbar-thumb:hover {
+      background: rgba(255,255,255,0.25);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <h1>Halanoi</h1>
+    <div class="stats-container" style="display: flex; gap: 10px; justify-content: center; margin-top: 15px;">
+      <div class="stat-box">
+        <span id="block-count" class="stat-num">0</span>
+        <span class="stat-label">Distractions</span>
+      </div>
+      <div class="stat-box">
+        <span id="time-saved" class="stat-num">0h</span>
+        <span class="stat-label">Time Saved</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="site-list">
+    <div class="site-row">
+      <div class="site-info">
+        <span>📺</span>
+        <span class="site-name">YouTube Safe Mode</span>
+      </div>
+      <label class="switch">
+        <input type="checkbox" id="toggle-youtube" checked>
+        <span class="slider"></span>
+      </label>
+    </div>
+
+    <div class="site-row">
+      <div class="site-info">
+        <span>📱</span>
+        <span class="site-name">Social Media (Insta/X)</span>
+      </div>
+      <label class="switch">
+        <input type="checkbox" id="toggle-social" checked>
+        <span class="slider"></span>
+      </label>
+    </div>
+
+    <div class="site-row">
+      <div class="site-info">
+        <span>🍿</span>
+        <span class="site-name">Netflix & Reddit</span>
+      </div>
+      <label class="switch">
+        <input type="checkbox" id="toggle-entertainment" checked>
+        <span class="slider"></span>
+      </label>
+    </div>
+
+    <div class="site-row" style="border-color: rgba(255, 68, 68, 0.3);">
+      <div class="site-info">
+        <span>🛡️</span>
+        <span class="site-name" style="color: #ff8888;">Dopamine Shield</span>
+      </div>
+      <label class="switch">
+        <input type="checkbox" id="toggle-shield">
+        <span class="slider"></span>
+      </label>
+    </div>
+  </div>
+
+  <div class="custom-section">
+    <h3 class="custom-header">Custom Blocklist</h3>
+    
+    <div class="input-group">
+      <input type="text" id="custom-site-input" class="custom-input" placeholder="example.com">
+      <button id="add-site-btn" class="add-btn">+</button>
+    </div>
+
+    <ul id="custom-site-list" class="custom-list">
+    </ul>
+  </div>
+
+  <div class="footer">
+    <a href="https://halanoi.com/dashboard" target="_blank" class="link">Open Dashboard</a>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
