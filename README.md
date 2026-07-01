@@ -8,7 +8,7 @@ AI-powered Chrome extension for productivity.
 
 ## Features
 - Context-aware focus prompts
-- Local AI inference integration
+- Cloud AI inference integration
 - Browser activity tracking
 - Lightweight UI popup
 
