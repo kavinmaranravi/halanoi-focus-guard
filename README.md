@@ -24,7 +24,7 @@ AI-powered Chrome extension for productivity.
 ![Success](success.png)
 
 ## Tech
-JavaScript, Chrome Extension APIs, Local AI
+JavaScript, Chrome Extension APIs, Cloud AI
 
 ## Author
 Kavinmaran Ravidurai
