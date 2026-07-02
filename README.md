@@ -29,6 +29,18 @@ Get the official extension for your browser:
 
 ---
 
+## 🎥 Tutorial & Demo
+
+<p align="center">
+  <a href="https://www.youtube.com/watch?v=Cr8ihJRtg9Q">
+    <img src="video_thumbnail.jpg" alt="Watch the Tutorial Video" width="500" />
+  </a>
+  <br />
+  <i>Click the image above to watch the official setup tutorial and demonstration of Halanoi Focus Guard on YouTube!</i>
+</p>
+
+---
+
 ## 📸 Screenshots
 
 ### Menu Popup
