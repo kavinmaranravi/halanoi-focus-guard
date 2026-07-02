@@ -62,6 +62,11 @@ Before running the extension locally, you must configure your own backend endpoi
 ## 📐 Tech Stack
 JavaScript, Chrome Extension APIs, Cloud AI
 
+## 🤝 Acknowledgements
+*   **Google Cloud Platform (GCP) & Firebase**: For providing the secure serverless cloud functions and hosting infrastructure that power our remote AI safety classification API.
+
+---
+
 ## 📝 License
 This project is open-source and licensed under the **MIT License** (see [LICENSE](LICENSE) for details).
 
